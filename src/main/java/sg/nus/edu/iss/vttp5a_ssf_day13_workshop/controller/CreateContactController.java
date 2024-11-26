@@ -12,14 +12,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.Contact;
-import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.service.ContactService;
+import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.service.ContactRedisService;
+import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.util.ContactKey;
 
 @Controller
 @RequestMapping("/contact")
 public class CreateContactController {
 
     @Autowired
-    ContactService contactService;
+    ContactRedisService contactRedisService;
 
     @GetMapping()
     public String creatContactForm(Model model){
@@ -33,7 +34,7 @@ public class CreateContactController {
             return "CreateContact";
         } else {
             Contact c = new Contact(contact.getName(), contact.getEmail(), contact.getPhoneNumber(), contact.getDateOfBirth());
-            contactService.addContact(c);
+            contactRedisService.addContact(ContactKey.KEY, c);
             // FileManager fileManager = new FileManager();
             // fileManager.writeToFile(contactService.getContacts());
             return "redirect:/contact/list";

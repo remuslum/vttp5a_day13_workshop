@@ -1,5 +1,6 @@
 package sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.validation.ValidDate;
 
-public class Contact {
+public class Contact implements Serializable {
 
     private String id;
 

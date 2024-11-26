@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.Contact;
-import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.service.ContactService;
-
+import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.service.ContactRedisService;
+import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.util.ContactKey;
 @Controller
 @RequestMapping("/contact")
 public class ContactList {
     
     @Autowired
-    ContactService contactService;
+    ContactRedisService contactRedisService;
 
     @GetMapping("/list")
     public String contactList(Model model){
-        List<Contact> contacts = contactService.getContacts();
+        List<Contact> contacts = contactRedisService.getContactList(ContactKey.KEY);
         model.addAttribute("contacts", contacts);
         return "ContactList";
     }

@@ -15,8 +15,8 @@ public class ContactService {
     @Autowired
     ContactRepo contactRepo;
 
-    public List<Contact> getContacts(String dataDir) throws IOException{
-        return contactRepo.getContacts(dataDir);
+    public List<Contact> getContacts(){
+        return contactRepo.getContacts();
     }
 
     public void addContact(Contact contact){
@@ -27,7 +27,15 @@ public class ContactService {
         contactRepo.deleteContact(contact);
     }
 
-    public void saveContacts(List<Contact> contacts, String dataDir) throws IOException {
-        contactRepo.saveContacts(contacts, dataDir);
+    public void saveContacts(List<Contact> contacts) throws IOException {
+        contactRepo.saveContacts(contacts);
+    }
+
+    public void saveIndividualContact(Contact contact) throws IOException {
+        contactRepo.saveIndividualContact(contact);
+    }
+
+    public Contact readIndividualContactFile(String contactId) throws IOException {
+        return contactRepo.readIndividualContactFile(contactId);
     }
 }

@@ -1,6 +1,7 @@
 package sg.nus.edu.iss.vttp5a_ssf_day13_workshop.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.Contact;
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.service.ContactService;
 
 @Controller
-@RequestMapping("/onecontact")
+@RequestMapping("/contact")
 public class IndividualContactController {
 
     @Value("${dataDir}")
@@ -26,7 +27,7 @@ public class IndividualContactController {
     @Autowired
     ContactService contactService;
 
-    @GetMapping()
+    @GetMapping("/linkpage")
     public String displayListofContacts(Model model){
         File folder = new File(dataDir);
         File[] files = folder.listFiles();
@@ -42,8 +43,13 @@ public class IndividualContactController {
 
     @GetMapping("/{contact-identifier}")
     public String findIndividualContact(@PathVariable("contact-identifier") String contactId, Model model) throws IOException{
-        Contact contact = contactService.readIndividualContactFile(contactId);
-        model.addAttribute("contact", contact);
-        return "Contacts";
+        try {
+            Contact contact = contactService.readIndividualContactFile(contactId);
+            model.addAttribute("contact", contact);
+            return "Contacts";
+        } catch (FileNotFoundException e) {
+            System.out.println("Contact does not exist");
+            return "redirect:/contact/list";
+        }
     }
 }

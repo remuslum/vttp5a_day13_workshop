@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.validation.ValidDate;
 
 public class Contact {
 
@@ -27,7 +26,7 @@ public class Contact {
     private String phoneNumber;
 
     @Past(message = "Date of Birth must be in the past")
-    @ValidDate
+    // @ValidDate
     private LocalDate dateOfBirth;
 
     public Contact(){

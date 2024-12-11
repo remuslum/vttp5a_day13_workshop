@@ -3,15 +3,19 @@ package sg.nus.edu.iss.vttp5a_ssf_day13_workshop.repo;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import jakarta.annotation.PostConstruct;
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.Contact;
 import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.ContactFile;
+import sg.nus.edu.iss.vttp5a_ssf_day13_workshop.model.ReadContactFile;
 
 @Repository
 public class ContactRepo {
+    @Autowired
+    ReadContactFile readContactFile;
 
     @Value("${dataDir}")
     private String dataDir;
@@ -24,7 +28,8 @@ public class ContactRepo {
     }
 
     private List<Contact> getContacts(String dataDir) throws IOException{
-        this.contacts = new ContactFile(dataDir).readList();
+        // this.contacts = new ContactFile(dataDir).readList();
+        this.contacts = readContactFile.readFile();
         return contacts;
     }
 
